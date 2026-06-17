@@ -1,0 +1,23 @@
+{
+  "name": "Malik Aliyan Alam",
+  "short_name": "Malik Aliyan",
+  "description": "Full Stack Web Developer & AI Automation Engineer based in Karachi.",
+  "icons": [
+    {
+      "src": "/branding/malik-aliyan-icon-dark.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/branding/malik-aliyan-icon-light.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#0a0f1c",
+  "background_color": "#0a0f1c",
+  "display": "standalone",
+  "start_url": "/"
+}

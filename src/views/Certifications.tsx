@@ -1,0 +1,79 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Award } from "lucide-react";
+import CTASection from "../components/CTASection";
+import Reveal from "../components/ui/Reveal";
+import { Blobs } from "../components/ui/Background";
+import { BADGES } from "../lib";
+
+export default function Certifications() {
+  return (
+    <>
+
+      {/* Page hero */}
+      <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40">
+        <Blobs />
+        <div className="container-px">
+          <Reveal>
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Certifications & Badges
+            </span>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+              Verified <span className="gradient-text">credentials</span> &
+              skill badges
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg text-slate-400">
+              A growing collection of certifications and skill badges I've earned,
+              focused on Generative AI, AI agents, and cloud, with more on the way.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Badge grid */}
+      <section className="pb-8">
+        <div className="container-px">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {BADGES.map((badge, i) => (
+              <motion.figure
+                key={badge.title}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+                className="card card-hover group flex flex-col overflow-hidden p-4"
+              >
+                <div className="overflow-hidden rounded-xl bg-white">
+                  <img
+                    src={badge.image}
+                    alt={`${badge.title} ${badge.kind} from ${badge.issuer}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-square w-full object-contain p-3 transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <figcaption className="mt-4 flex flex-1 flex-col px-1 pb-1">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+                    <Award size={13} />
+                    {badge.issuer}
+                  </span>
+                  <span className="mt-1.5 flex-1 font-semibold leading-snug text-slate-50">
+                    {badge.title}
+                  </span>
+                  <span className="mt-1 text-xs text-slate-400">{badge.kind}</span>
+                </figcaption>
+              </motion.figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTASection
+        title="Always leveling up"
+        subtitle="I'm continuously earning new credentials in AI, automation, and cloud. Let's put those skills to work for you."
+      />
+    </>
+  );
+}
