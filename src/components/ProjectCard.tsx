@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { m, useInView } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import type { Project } from "../lib";
 
@@ -11,11 +13,13 @@ export default function ProjectCard({
   project: Project;
   index?: number;
 }) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.article
+    <m.article
+      ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
       className="card card-hover group relative flex flex-col overflow-hidden"
     >
@@ -24,27 +28,27 @@ export default function ProjectCard({
         href={project.live}
         target="_blank"
         rel="noreferrer"
-        className="relative block h-48 overflow-hidden bg-ink-800"
+        className="relative block h-48 overflow-hidden bg-surface2"
         aria-label={`Open live demo of ${project.title}`}
       >
-        <img
+        <Image
           src={project.image}
           alt={project.imageAlt}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" />
         {/* sheen on hover */}
         <div className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
-        <span className="absolute right-3 top-3 rounded-full bg-ink-950/60 px-3 py-1 text-xs font-medium text-slate-200 backdrop-blur">
+        <span className="absolute right-3 top-3 rounded-full bg-ink-950/60 px-3 py-1 text-xs font-medium text-white backdrop-blur">
           {project.category}
         </span>
       </a>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-base font-semibold text-slate-50">{project.title}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
+        <h3 className="text-base font-semibold text-fg">{project.title}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-subtle">
           {project.description}
         </p>
 
@@ -77,6 +81,6 @@ export default function ProjectCard({
           </a>
         </div>
       </div>
-    </motion.article>
+    </m.article>
   );
 }

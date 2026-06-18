@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { WHATSAPP_LINK } from "../lib/site";
 
 /** Floating WhatsApp contact button shown on every page. */
 export default function WhatsAppButton() {
   return (
-    <motion.a
+    <m.a
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noreferrer"
@@ -28,6 +28,6 @@ export default function WhatsAppButton() {
       <span className="pointer-events-none ml-0 max-w-0 overflow-hidden whitespace-nowrap rounded-full bg-[#25D366] py-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:max-w-[160px] group-hover:px-4 group-hover:opacity-100">
         Chat with me
       </span>
-    </motion.a>
+    </m.a>
   );
 }

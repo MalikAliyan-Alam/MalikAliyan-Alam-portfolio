@@ -1,9 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
+        // Semantic, theme-aware tokens (values come from CSS vars in globals.css)
+        bg: "rgb(var(--c-bg) / <alpha-value>)",
+        card: "rgb(var(--c-card) / <alpha-value>)",
+        surface2: "rgb(var(--c-surface-2) / <alpha-value>)",
+        fg: "rgb(var(--c-fg) / <alpha-value>)",
+        "fg-muted": "rgb(var(--c-fg-muted) / <alpha-value>)",
+        "fg-subtle": "rgb(var(--c-fg-subtle) / <alpha-value>)",
+        "fg-faint": "rgb(var(--c-fg-faint) / <alpha-value>)",
+        // Used for translucent fills & borders (white in dark, near-black in light)
+        overlay: "rgb(var(--c-overlay) / <alpha-value>)",
         // Deep navy / charcoal neutrals
         ink: {
           950: "#070b14",
@@ -12,9 +23,10 @@ export default {
           700: "#16213a",
           600: "#1e2a47",
         },
-        // Single accent: electric teal/blue
+        // Single accent: electric teal/blue (DEFAULT is theme-aware via CSS var
+        // so it stays high-contrast on the light theme too)
         accent: {
-          DEFAULT: "#2dd4bf",
+          DEFAULT: "rgb(var(--c-accent) / <alpha-value>)",
           soft: "#5eead4",
           deep: "#14b8a6",
           glow: "#06b6d4",

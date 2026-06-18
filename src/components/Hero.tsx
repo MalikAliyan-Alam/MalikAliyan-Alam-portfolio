@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Sparkles, MapPin } from "lucide-react";
 import { Blobs, GridBackdrop } from "./ui/Background";
 import { SITE } from "../lib";
@@ -18,18 +18,18 @@ const item = {
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden pt-24">
+    <section className="relative flex min-h-[92vh] items-center overflow-hidden pt-28 pb-20 sm:pb-16">
       <Blobs />
       <GridBackdrop />
 
       <div className="container-px">
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           animate="show"
           className="max-w-4xl"
         >
-          <motion.div variants={item} className="flex flex-wrap items-center gap-2.5">
+          <m.div variants={item} className="flex flex-wrap items-center gap-2.5">
             <span className="pill border-accent/30 bg-accent/10 text-accent">
               <MapPin size={14} />
               {SITE.location} · Open to remote
@@ -41,28 +41,28 @@ export default function Hero() {
               </span>
               Available for new projects
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             variants={item}
-            className="mt-6 text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl"
+            className="mt-6 text-3xl font-bold leading-[1.08] sm:text-4xl lg:text-5xl"
           >
             <span className="gradient-text">AI Automation</span> Engineer
             <span className="block">& Full-Stack Web Developer</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={item}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-subtle"
           >
-            Hi, I'm <span className="font-semibold text-slate-200">Malik Aliyan Alam</span>.
+            Hi, I'm <span className="font-semibold text-fg">Malik Aliyan Alam</span>.
             I build intelligent web apps, AI-powered automations, and chatbots
             that solve real business problems, specializing in RAG-based
             chatbots, n8n automation, and Generative AI applications. Currently
             an AI Automation Engineer at GenAiTech (Belgium, remote).
-          </motion.p>
+          </m.p>
 
-          <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <m.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link href="/case-studies" className="btn-primary">
               View My Work
               <ArrowRight size={16} />
@@ -71,26 +71,26 @@ export default function Hero() {
               <Sparkles size={16} />
               Let's Build Something
             </Link>
-          </motion.div>
+          </m.div>
 
-        </motion.div>
+        </m.div>
       </div>
 
       {/* scroll hint */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
         className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 sm:block"
       >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1.5">
-          <motion.span
+        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-overlay/20 p-1.5">
+          <m.span
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.6, repeat: Infinity }}
             className="h-1.5 w-1.5 rounded-full bg-accent"
           />
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

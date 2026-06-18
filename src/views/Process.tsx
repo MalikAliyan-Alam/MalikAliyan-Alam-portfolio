@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Timeline from "../components/Timeline";
 import CTASection from "../components/CTASection";
@@ -29,28 +29,28 @@ function FaqItem({
         aria-expanded={isOpen}
         className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
       >
-        <span className="text-base font-semibold text-slate-100">{q}</span>
-        <motion.span
+        <span className="text-base font-semibold text-fg">{q}</span>
+        <m.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.25 }}
-          className={`shrink-0 ${isOpen ? "text-accent" : "text-slate-400"}`}
+          className={`shrink-0 ${isOpen ? "text-accent" : "text-fg-subtle"}`}
         >
           <ChevronDown size={20} />
-        </motion.span>
+        </m.span>
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="px-5 pb-5 text-sm leading-relaxed text-slate-400">
+            <p className="px-5 pb-5 text-sm leading-relaxed text-fg-subtle">
               {a}
             </p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -75,7 +75,7 @@ export default function Process() {
               A clear path from{" "}
               <span className="gradient-text">first hello to long-term support</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-lg text-slate-400">
+            <p className="mt-5 max-w-2xl text-lg text-fg-subtle">
               No guesswork, no jargon. Here's exactly what it's like to work with
               me, step by step.
             </p>
@@ -97,7 +97,7 @@ export default function Process() {
       </section>
 
       {/* FAQ */}
-      <section className="section bg-ink-900/30">
+      <section className="section bg-surface2/50">
         <div className="container-px">
           <SectionHeading
             eyebrow="FAQ"

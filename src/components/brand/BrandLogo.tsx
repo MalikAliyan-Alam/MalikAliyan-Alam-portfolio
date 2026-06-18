@@ -19,9 +19,9 @@ export default function BrandLogo({
   symbolClassName = "h-9",
 }: BrandLogoProps) {
   const isDark = variant === "dark";
-  const textColor = isDark ? "text-slate-50" : "text-ink-900";
-  const bracketColor = isDark ? "text-slate-100" : "text-ink-900";
-  const tagColor = isDark ? "text-slate-400" : "text-slate-500";
+  const textColor = isDark ? "text-fg" : "text-ink-900";
+  const bracketColor = isDark ? "text-fg" : "text-ink-900";
+  const tagColor = isDark ? "text-fg-subtle" : "text-fg-faint";
 
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>

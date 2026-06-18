@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import InitialLoader from "@/components/InitialLoader";
+import ThemeProvider from "@/components/ThemeProvider";
+import MotionProvider from "@/components/MotionProvider";
+import CustomCursor from "@/components/CustomCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,16 +49,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}
     >
       <body>
-        <InitialLoader />
-        <div className="flex min-h-screen flex-col">
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </div>
-        <WhatsAppButton />
+        <ThemeProvider>
+          <MotionProvider>
+            <CustomCursor />
+            <InitialLoader />
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
+            <WhatsAppButton />
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import BrandSymbol from "./brand/BrandSymbol";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
@@ -10,7 +10,7 @@ type InlineLoaderProps = {
 /**
  * Small reusable loader built from the brand symbol, for async UI states
  * (form submit, data loading, etc.). Falls back to a static mark under
- * prefers-reduced-motion.
+ * prefers-reduced-m.
  */
 export default function InlineLoader({
   className = "h-5 w-5",
@@ -24,7 +24,7 @@ export default function InlineLoader({
       aria-label={label}
       className="inline-flex items-center justify-center"
     >
-      <motion.span
+      <m.span
         className="inline-flex"
         {...(!reduced
           ? {
@@ -34,7 +34,7 @@ export default function InlineLoader({
           : {})}
       >
         <BrandSymbol animated={!reduced} className={`${className} w-auto`} />
-      </motion.span>
+      </m.span>
     </span>
   );
 }

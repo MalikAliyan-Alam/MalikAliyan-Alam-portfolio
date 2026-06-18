@@ -7,7 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-10 border-t border-white/10 bg-ink-900/60">
+    <footer className="relative mt-10 border-t border-overlay/10 bg-surface2/60">
       <div className="container-px py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand + CTA */}
@@ -19,7 +19,7 @@ export default function Footer() {
             >
               <BrandLogo variant="dark" className="h-12 w-auto" />
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-fg-subtle">
               {SITE.role}. I build modern web apps and AI-powered automation
               systems that move businesses forward.
             </p>
@@ -31,7 +31,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-200">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-fg">
               Navigate
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -39,7 +39,7 @@ export default function Footer() {
                 <li key={link.to}>
                   <Link
                     href={link.to}
-                    className="text-sm text-slate-400 transition-colors hover:text-accent"
+                    className="text-sm text-fg-subtle transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -50,10 +50,10 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-200">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-fg">
               Connect
             </h3>
-            <ul className="mt-4 space-y-3 text-sm text-slate-400">
+            <ul className="mt-4 space-y-3 text-sm text-fg-subtle">
               <li className="flex items-center gap-2.5">
                 <MapPin size={16} className="text-accent" />
                 {SITE.location}
@@ -74,7 +74,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-all hover:border-accent/50 hover:text-accent hover:-translate-y-0.5"
+                className="grid h-10 w-10 place-items-center rounded-lg border border-overlay/10 bg-overlay/5 text-fg-muted transition-all hover:border-accent/50 hover:text-accent hover:-translate-y-0.5"
               >
                 <Linkedin size={18} />
               </a>
@@ -83,7 +83,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-all hover:border-accent/50 hover:text-accent hover:-translate-y-0.5"
+                className="grid h-10 w-10 place-items-center rounded-lg border border-overlay/10 bg-overlay/5 text-fg-muted transition-all hover:border-accent/50 hover:text-accent hover:-translate-y-0.5"
               >
                 <Github size={18} />
               </a>
@@ -91,7 +91,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-overlay/10 pt-6 text-xs text-fg-faint sm:flex-row">
           <p>
             © {year} {SITE.name}. All rights reserved.
           </p>

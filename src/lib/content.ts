@@ -7,10 +7,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 // Case-study images are served statically from /public/case-studies.
-const drugstoreChatbot = "/case-studies/drugstore-hasselt-chatbot.png";
-const barhamDental = "/case-studies/barham-dental.png";
-const cityDentalCare = "/case-studies/city-dental-care.png";
-const helplystack = "/case-studies/helplystack.png";
+const drugstoreChatbot = "/case-studies/drugstore-hasselt-chatbot.webp";
+const barhamDental = "/case-studies/barham-dental.webp";
+const cityDentalCare = "/case-studies/city-dental-care.webp";
+const helplystack = "/case-studies/helplystack.webp";
 
 export type Service = {
   icon: LucideIcon;

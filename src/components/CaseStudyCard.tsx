@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { m, useInView } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { CaseStudy } from "../lib";
 
@@ -13,11 +15,13 @@ export default function CaseStudyCard({
   index?: number;
   onOpen: (study: CaseStudy) => void;
 }) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.article
+    <m.article
+      ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
       className="card card-hover group relative flex flex-col overflow-hidden"
     >
@@ -30,48 +34,48 @@ export default function CaseStudyCard({
       >
         {study.image ? (
           <>
-            <img
+            <Image
               src={study.image}
               alt={study.imageAlt ?? study.title}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" />
           </>
         ) : (
           <>
             <div className="absolute inset-0 bg-grid-faint bg-[size:28px_28px] opacity-60" />
-            <motion.span
+            <m.span
               className="relative font-display text-5xl font-bold text-white/80"
               whileHover={{ scale: 1.1 }}
             >
               {study.title.charAt(0)}
-            </motion.span>
+            </m.span>
           </>
         )}
         {/* sheen on hover */}
         <div className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
-        <span className="absolute right-3 top-3 rounded-full bg-ink-950/60 px-3 py-1 text-xs font-medium text-slate-200 backdrop-blur">
+        <span className="absolute right-3 top-3 rounded-full bg-ink-950/60 px-3 py-1 text-xs font-medium text-white backdrop-blur">
           {study.category}
         </span>
       </button>
 
       {/* Result metric badge straddling the thumbnail */}
       {study.metric && (
-        <div className="absolute left-5 top-32 z-10 flex items-center gap-2 rounded-xl border border-white/10 bg-ink-900/90 px-3 py-2 shadow-lg shadow-black/30 backdrop-blur">
+        <div className="absolute left-5 top-32 z-10 flex items-center gap-2 rounded-xl border border-overlay/10 bg-card/90 px-3 py-2 shadow-lg shadow-black/30 backdrop-blur">
           <span className="font-display text-lg font-bold gradient-text">
             {study.metric.value}
           </span>
-          <span className="text-[11px] leading-tight text-slate-400">
+          <span className="text-[11px] leading-tight text-fg-subtle">
             {study.metric.label}
           </span>
         </div>
       )}
 
       <div className="flex flex-1 flex-col p-6 pt-8">
-        <h3 className="text-lg font-semibold text-slate-50">{study.title}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
+        <h3 className="text-lg font-semibold text-fg">{study.title}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-subtle">
           {study.summary}
         </p>
 
@@ -98,7 +102,7 @@ export default function CaseStudyCard({
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-colors hover:text-accent"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-fg-subtle transition-colors hover:text-accent"
             >
               <ExternalLink size={14} />
               Live site
@@ -106,6 +110,6 @@ export default function CaseStudyCard({
           )}
         </div>
       </div>
-    </motion.article>
+    </m.article>
   );
 }

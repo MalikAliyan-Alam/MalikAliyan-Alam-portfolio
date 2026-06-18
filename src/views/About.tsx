@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { m, useInView } from "framer-motion";
 import Link from "next/link";
 import {
   Github,
@@ -12,6 +14,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Timeline from "../components/Timeline";
+import BrandSymbol from "../components/brand/BrandSymbol";
 import CTASection from "../components/CTASection";
 import Reveal from "../components/ui/Reveal";
 import SectionHeading from "../components/ui/SectionHeading";
@@ -126,17 +129,18 @@ const SKILL_GROUPS: {
 ];
 
 function SkillBar({ name, level }: { name: string; level: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
     <div>
       <div className="mb-1.5 flex items-center justify-between text-sm">
-        <span className="text-slate-300">{name}</span>
-        <span className="text-slate-500">{level}%</span>
+        <span className="text-fg-muted">{name}</span>
+        <span className="text-fg-faint">{level}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/10">
-        <motion.div
+      <div ref={ref} className="h-2 overflow-hidden rounded-full bg-overlay/10">
+        <m.div
           initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
+          animate={inView ? { width: `${level}%` } : { width: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="h-full rounded-full bg-gradient-to-r from-accent-deep to-accent-soft"
         />
@@ -176,10 +180,10 @@ export default function About() {
                 About Me
               </span>
               <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
-                Hi, I'm Malik, I build for the{" "}
+                Hi, I'm Malik Aliyan, I build for the{" "}
                 <span className="gradient-text">web and beyond</span>
               </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-400">
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-fg-subtle">
                 I build intelligent web apps, AI-powered automations, and
                 chatbots that solve real business problems. I work across the
                 full stack (React, Node.js, Python) and specialize in RAG-based
@@ -220,12 +224,37 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={0.15}>
-              <div className="relative mx-auto aspect-square w-full max-w-xs">
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/30 to-accent-glow/20 blur-2xl" />
-                <div className="relative flex h-full items-center justify-center rounded-3xl border border-white/10 bg-ink-900/80 animate-float-y">
-                  <span className="font-display text-8xl font-bold gradient-text">
-                    MA
-                  </span>
+              <div className="group relative mx-auto w-full max-w-[19rem]">
+                {/* ambient glow */}
+                <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-accent/25 via-accent-glow/15 to-indigo-500/20 blur-3xl" />
+
+                {/* gradient ring frame */}
+                <div className="relative animate-float-y rounded-[1.75rem] bg-gradient-to-br from-accent/70 via-accent-glow/40 to-overlay/10 p-px shadow-2xl shadow-accent/10">
+                  <div className="relative aspect-[9/10] overflow-hidden rounded-[1.7rem] bg-card">
+                    <Image
+                      src="/malikaliyan.webp"
+                      alt="Malik Aliyan Alam"
+                      fill
+                      priority
+                      sizes="(min-width: 640px) 304px, 80vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <span className="pointer-events-none absolute inset-0 rounded-[1.7rem] ring-1 ring-inset ring-overlay/10" />
+                  </div>
+
+                  {/* floating brand chip */}
+                  <div className="absolute -bottom-4 -left-4 grid h-14 w-14 place-items-center rounded-2xl border border-overlay/10 bg-card text-fg shadow-xl">
+                    <BrandSymbol className="h-7 w-auto" />
+                  </div>
+
+                  {/* floating status chip */}
+                  <div className="absolute -right-3 top-6 flex items-center gap-1.5 rounded-full border border-overlay/10 bg-card px-3 py-1.5 text-xs font-medium text-fg-muted shadow-xl">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    Available
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -248,7 +277,7 @@ export default function About() {
       </section>
 
       {/* Education */}
-      <section className="section bg-ink-900/30">
+      <section className="section bg-surface2/50">
         <div className="container-px">
           <SectionHeading
             eyebrow="Education"
@@ -264,13 +293,13 @@ export default function About() {
                   <span className="mt-4 block text-xs font-semibold uppercase tracking-wider text-accent">
                     {edu.meta}
                   </span>
-                  <h3 className="mt-1 text-lg font-semibold text-slate-50">
+                  <h3 className="mt-1 text-lg font-semibold text-fg">
                     {edu.title}
                   </h3>
-                  <p className="text-sm font-medium text-slate-400">
+                  <p className="text-sm font-medium text-fg-subtle">
                     {edu.subtitle}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                  <p className="mt-3 text-sm leading-relaxed text-fg-subtle">
                     {edu.description}
                   </p>
                 </div>
@@ -292,7 +321,7 @@ export default function About() {
             {SKILL_GROUPS.map((g, i) => (
               <Reveal key={g.group} delay={(i % 2) * 0.1}>
                 <div className="card h-full p-6">
-                  <h3 className="text-lg font-semibold text-slate-50">
+                  <h3 className="text-lg font-semibold text-fg">
                     {g.group}
                   </h3>
                   <div className="mt-5 space-y-4">
@@ -308,7 +337,7 @@ export default function About() {
       </section>
 
       {/* Certifications */}
-      <section className="section bg-ink-900/30">
+      <section className="section bg-surface2/50">
         <div className="container-px">
           <SectionHeading
             eyebrow="Certifications"
@@ -331,10 +360,10 @@ export default function About() {
                   <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent">
                     <Award size={20} />
                   </span>
-                  <p className="mt-4 flex-1 font-medium leading-snug text-slate-100">
+                  <p className="mt-4 flex-1 font-medium leading-snug text-fg">
                     {c.title}
                   </p>
-                  <p className="mt-1 text-sm text-slate-400">{c.issuer}</p>
+                  <p className="mt-1 text-sm text-fg-subtle">{c.issuer}</p>
                   {c.link ? (
                     <a
                       href={c.link}
@@ -346,7 +375,7 @@ export default function About() {
                       <ExternalLink size={13} />
                     </a>
                   ) : (
-                    <span className="mt-3 text-xs font-medium text-slate-600">
+                    <span className="mt-3 text-xs font-medium text-fg-faint">
                       Verification link coming soon
                     </span>
                   )}
@@ -361,16 +390,16 @@ export default function About() {
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-accent">
                 <Heart size={22} />
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-slate-50">
+              <h3 className="mt-4 text-xl font-semibold text-fg">
                 A personal note
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              <p className="mt-4 text-sm leading-relaxed text-fg-subtle">
                 Coding isn't just my job, it's genuinely what I love doing.
                 There's a special kind of satisfaction in solving a tricky
                 problem, shipping something people actually use, and then
                 automating it so it runs on its own.
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              <p className="mt-4 text-sm leading-relaxed text-fg-subtle">
                 I'm a firm believer in continuous learning. The tech world moves
                 fast, and I move with it, always exploring new tools in AI,
                 automation, and web development to deliver better results for the

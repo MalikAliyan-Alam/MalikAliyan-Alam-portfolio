@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Code2, Workflow, Bot } from "lucide-react";
 import Hero from "../components/Hero";
 import CaseStudyCard from "../components/CaseStudyCard";
@@ -44,14 +43,14 @@ export default function Home() {
       <Hero />
 
       {/* Tech stack ticker */}
-      <section className="border-y border-white/10 bg-ink-900/40 py-8">
-        <p className="container-px text-center text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+      <section className="border-y border-overlay/10 bg-surface2/50 py-8">
+        <p className="container-px text-center text-xs font-semibold uppercase tracking-[0.3em] text-fg-faint">
           My Tech Stack
         </p>
         <div className="relative mt-6 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max shrink-0 animate-marquee items-center gap-3 pr-3">
             {[...TECH_STACK, ...TECH_STACK].map((tech, i) => (
-              <span key={i} className="pill whitespace-nowrap text-sm text-slate-300">
+              <span key={i} className="pill whitespace-nowrap text-sm text-fg-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {tech}
               </span>
@@ -64,14 +63,14 @@ export default function Home() {
       <section className="pt-14">
         <div className="container-px">
           <Reveal className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-fg-faint">
               Trusted by clinics & growing businesses
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
               {TRUSTED_BY.map((name) => (
                 <span
                   key={name}
-                  className="font-display text-lg font-semibold text-slate-500 transition-colors duration-300 hover:text-slate-200 sm:text-xl"
+                  className="font-display text-lg font-semibold text-fg-faint transition-colors duration-300 hover:text-fg sm:text-xl"
                 >
                   {name}
                 </span>
@@ -96,10 +95,10 @@ export default function Home() {
                   <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-accent">
                     <t.icon size={22} />
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-slate-50">
+                  <h3 className="mt-4 text-lg font-semibold text-fg">
                     {t.title}
                   </h3>
-                  <p className="mt-2 text-sm text-slate-400">{t.text}</p>
+                  <p className="mt-2 text-sm text-fg-subtle">{t.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -114,7 +113,7 @@ export default function Home() {
       </section>
 
       {/* Featured case studies */}
-      <section className="section bg-ink-900/30">
+      <section className="section bg-surface2/50">
         <div className="container-px">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
@@ -142,7 +141,7 @@ export default function Home() {
               />
             ))}
           </div>
-          <p className="mt-6 text-center text-sm text-slate-500">
+          <p className="mt-6 text-center text-sm text-fg-faint">
             Want the full story?{" "}
             <Link href="/case-studies" className="text-accent hover:underline">
               See detailed breakdowns →
@@ -155,22 +154,16 @@ export default function Home() {
       <section className="section">
         <div className="container-px">
           <Reveal>
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-overlay/10 bg-overlay/10 sm:grid-cols-4">
               {STATS.map((stat) => (
                 <div
                   key={stat.label}
-                  className="bg-ink-900 p-7 text-center transition-colors hover:bg-ink-800"
+                  className="bg-card p-7 text-center transition-colors hover:bg-surface2"
                 >
-                  <motion.div
-                    initial={{ scale: 0.6, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 180 }}
-                    className="gradient-text font-display text-4xl font-bold sm:text-5xl"
-                  >
+                  <div className="gradient-text font-display text-4xl font-bold sm:text-5xl">
                     <CountUp value={stat.value} />
-                  </motion.div>
-                  <p className="mt-2 text-sm text-slate-400">{stat.label}</p>
+                  </div>
+                  <p className="mt-2 text-sm text-fg-subtle">{stat.label}</p>
                 </div>
               ))}
             </div>

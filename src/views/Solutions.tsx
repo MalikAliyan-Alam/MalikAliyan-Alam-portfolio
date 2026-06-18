@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, ArrowRight, Mail, CheckCircle2, Send } from "lucide-react";
 import InlineLoader from "../components/InlineLoader";
 import Reveal from "../components/ui/Reveal";
@@ -11,18 +11,18 @@ import { SOLUTION_OPTIONS, SITE, WHATSAPP_LINK, MAILTO_LINK } from "../lib";
 
 function Toast({ onDone }: { onDone: () => void }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 40, x: "-50%" }}
       animate={{ opacity: 1, y: 0, x: "-50%" }}
       exit={{ opacity: 0, y: 40, x: "-50%" }}
       onAnimationComplete={() => setTimeout(onDone, 3500)}
-      className="fixed bottom-24 left-1/2 z-[70] flex items-center gap-3 rounded-full border border-accent/30 bg-ink-800 px-5 py-3 shadow-xl shadow-black/40"
+      className="fixed bottom-24 left-1/2 z-[70] flex items-center gap-3 rounded-full border border-accent/30 bg-surface2 px-5 py-3 shadow-xl shadow-black/40"
     >
       <CheckCircle2 size={20} className="text-accent" />
-      <span className="text-sm font-medium text-slate-100">
+      <span className="text-sm font-medium text-fg">
         Message sent! I'll get back to you soon.
       </span>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -59,7 +59,7 @@ export default function Solutions() {
               Tailored to{" "}
               <span className="gradient-text">exactly what you need</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-lg text-slate-400">
+            <p className="mt-5 max-w-2xl text-lg text-fg-subtle">
               Tell me what you're after and I'll suggest the right approach.
               Pick an option below to see how we'd tackle it together.
             </p>
@@ -68,7 +68,7 @@ export default function Solutions() {
       </section>
 
       {/* Project type selector */}
-      <section className="pb-4">
+      <section className="pb-4 pt-10 sm:pt-14">
         <div className="container-px">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             {/* Options */}
@@ -83,12 +83,12 @@ export default function Solutions() {
                     className={`group flex w-full items-center justify-between gap-4 rounded-2xl border p-5 text-left transition-all duration-300 ${
                       isActive
                         ? "border-accent/60 bg-accent/10"
-                        : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]"
+                        : "border-overlay/10 bg-overlay/[0.03] hover:border-overlay/20 hover:bg-overlay/[0.05]"
                     }`}
                   >
                     <span
                       className={`text-base font-semibold ${
-                        isActive ? "text-white" : "text-slate-200"
+                        isActive ? "text-fg" : "text-fg-muted"
                       }`}
                     >
                       {opt.label}
@@ -97,7 +97,7 @@ export default function Solutions() {
                       className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all ${
                         isActive
                           ? "bg-accent text-ink-950"
-                          : "bg-white/5 text-slate-400 group-hover:text-white"
+                          : "bg-overlay/5 text-fg-subtle group-hover:text-fg"
                       }`}
                     >
                       <ArrowRight size={16} />
@@ -110,7 +110,7 @@ export default function Solutions() {
             {/* Dynamic pitch */}
             <div className="card relative min-h-[320px] overflow-hidden p-7 sm:p-9">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={active.id}
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -118,29 +118,29 @@ export default function Solutions() {
                   transition={{ duration: 0.35 }}
                 >
                   <span className="eyebrow">Suggested approach</span>
-                  <h3 className="mt-3 text-2xl font-bold text-slate-50">
+                  <h3 className="mt-3 text-2xl font-bold text-fg">
                     {active.label.replace("I need ", "")}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-slate-400">
+                  <p className="mt-3 text-base leading-relaxed text-fg-subtle">
                     {active.pitch}
                   </p>
                   <ul className="mt-6 space-y-3">
                     {active.approach.map((step, i) => (
-                      <motion.li
+                      <m.li
                         key={step}
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.1 + i * 0.08 }}
-                        className="flex gap-3 text-sm text-slate-300"
+                        className="flex gap-3 text-sm text-fg-muted"
                       >
                         <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent/15 text-accent">
                           <Check size={14} />
                         </span>
                         {step}
-                      </motion.li>
+                      </m.li>
                     ))}
                   </ul>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
           </div>
@@ -193,7 +193,7 @@ export default function Solutions() {
                     className="form-input"
                   >
                     {SOLUTION_OPTIONS.map((opt) => (
-                      <option key={opt.id} value={opt.id} className="bg-ink-800">
+                      <option key={opt.id} value={opt.id} className="bg-surface2">
                         {opt.label.replace("I need ", "")}
                       </option>
                     ))}
@@ -271,7 +271,7 @@ function Field({
 }) {
   return (
     <label htmlFor={htmlFor} className="block">
-      <span className="mb-2 block text-sm font-medium text-slate-300">
+      <span className="mb-2 block text-sm font-medium text-fg-muted">
         {label}
       </span>
       {children}

@@ -29,7 +29,7 @@ export default function SectionHeading({
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-base leading-relaxed text-slate-400">
+        <p className="mt-4 text-base leading-relaxed text-fg-subtle">
           {subtitle}
         </p>
       )}

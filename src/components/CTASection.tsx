@@ -17,12 +17,12 @@ export default function CTASection({
     <section className="section">
       <div className="container-px">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-ink-800 to-ink-900 px-6 py-14 text-center sm:px-12 sm:py-20">
+          <div className="relative overflow-hidden rounded-3xl border border-overlay/10 bg-gradient-to-br from-surface2 to-card px-6 py-14 text-center sm:px-12 sm:py-20">
             <Blobs />
             <h2 className="mx-auto max-w-2xl text-3xl font-bold sm:text-4xl">
               {title}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-slate-400">
+            <p className="mx-auto mt-4 max-w-xl text-base text-fg-subtle">
               {subtitle}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

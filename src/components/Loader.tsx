@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import BrandSymbol from "./brand/BrandSymbol";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
@@ -8,14 +8,14 @@ import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
  * Full-screen initial-load screen. Centers the brand symbol with a gentle
  * whole-mark pulse plus a soft purple glow that breathes behind the neural
  * nodes. Background matches the dark site theme; it fades out via the parent
- * AnimatePresence. Animation is disabled under prefers-reduced-motion.
+ * AnimatePresence. Animation is disabled under prefers-reduced-m.
  */
 export default function Loader() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[100] grid place-items-center bg-ink-950"
+    <m.div
+      className="fixed inset-0 z-[100] grid place-items-center bg-bg"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -28,7 +28,7 @@ export default function Loader() {
         <div className="relative grid place-items-center">
           {/* Soft ambient glow behind the mark */}
           {!reduced && (
-            <motion.span
+            <m.span
               aria-hidden="true"
               className="absolute h-32 w-32 rounded-full bg-[#7c3aed] blur-3xl"
               animate={{ opacity: [0.1, 0.35, 0.1], scale: [0.85, 1.1, 0.85] }}
@@ -36,8 +36,8 @@ export default function Loader() {
             />
           )}
 
-          <motion.div
-            className="relative text-slate-100"
+          <m.div
+            className="relative text-fg"
             {...(!reduced
               ? {
                   animate: { scale: [1, 1.05, 1] },
@@ -53,13 +53,13 @@ export default function Loader() {
               animated={!reduced}
               className="h-24 w-auto"
             />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Indeterminate loading bar */}
-        <div className="h-1 w-32 overflow-hidden rounded-full bg-white/10">
+        <div className="h-1 w-32 overflow-hidden rounded-full bg-overlay/10">
           {!reduced ? (
-            <motion.span
+            <m.span
               className="block h-full w-1/2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#a78bfa]"
               animate={{ x: ["-120%", "260%"] }}
               transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
@@ -69,10 +69,10 @@ export default function Loader() {
           )}
         </div>
 
-        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-500">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-fg-faint">
           Malik Aliyan
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

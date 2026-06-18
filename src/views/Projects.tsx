@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, m } from "framer-motion";
 import { ExternalLink, Github, Star } from "lucide-react";
 import ProjectCard from "../components/ProjectCard";
 import CTASection from "../components/CTASection";
@@ -47,7 +48,7 @@ export default function Projects() {
             <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
               Things I've <span className="gradient-text">designed and built</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-lg text-slate-400">
+            <p className="mt-5 max-w-2xl text-lg text-fg-subtle">
               A collection of web apps, e-commerce stores, landing pages and
               front-end builds. Every card links straight to the live demo and
               the source code.
@@ -57,7 +58,7 @@ export default function Projects() {
       </section>
 
       {/* Featured project: FoodStore */}
-      <section className="pb-6">
+      <section className="pb-6 pt-10 sm:pt-14">
         <div className="container-px">
           <Reveal>
             <article className="card card-hover group overflow-hidden">
@@ -66,15 +67,16 @@ export default function Projects() {
                 href={FEATURED_PROJECT.live}
                 target="_blank"
                 rel="noreferrer"
-                className="relative block h-56 w-full overflow-hidden bg-ink-950 sm:h-72 lg:h-80"
+                className="relative block h-56 w-full overflow-hidden bg-bg sm:h-72 lg:h-80"
                 aria-label={`Open live demo of ${FEATURED_PROJECT.title}`}
               >
-                <img
+                <Image
                   src={FEATURED_PROJECT.image}
                   alt={FEATURED_PROJECT.imageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 1200px, 100vw"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/10 to-transparent" />
                 <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-ink-950/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur">
@@ -84,10 +86,10 @@ export default function Projects() {
               </a>
 
               <div className="p-7 sm:p-9">
-                <h2 className="text-2xl font-bold text-slate-50 sm:text-3xl">
+                <h2 className="text-2xl font-bold text-fg sm:text-3xl">
                   {FEATURED_PROJECT.title}
                 </h2>
-                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-400">
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-fg-subtle">
                   {FEATURED_PROJECT.description}
                 </p>
 
@@ -95,12 +97,12 @@ export default function Projects() {
                   {FOODSTORE_HIGHLIGHTS.map((h) => (
                     <div
                       key={h.label}
-                      className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center"
+                      className="rounded-xl border border-overlay/10 bg-overlay/[0.03] p-3 text-center"
                     >
                       <div className="gradient-text font-display text-xl font-bold">
                         {h.value}
                       </div>
-                      <div className="mt-0.5 text-[11px] text-slate-400">
+                      <div className="mt-0.5 text-[11px] text-fg-subtle">
                         {h.label}
                       </div>
                     </div>
@@ -162,15 +164,11 @@ export default function Projects() {
                   className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     active
                       ? "text-ink-950"
-                      : "text-slate-400 hover:text-white"
+                      : "text-fg-subtle hover:text-fg"
                   }`}
                 >
                   {active && (
-                    <motion.span
-                      layoutId="project-filter-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-accent"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                    <span className="absolute inset-0 -z-10 rounded-full bg-accent" />
                   )}
                   {f}
                 </button>
@@ -179,13 +177,13 @@ export default function Projects() {
           </div>
 
           {/* Grid */}
-          <motion.div
+          <m.div
             layout
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             <AnimatePresence mode="popLayout">
               {visible.map((project, i) => (
-                <motion.div
+                <m.div
                   key={project.id}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -194,12 +192,12 @@ export default function Projects() {
                   transition={{ duration: 0.25 }}
                 >
                   <ProjectCard project={project} index={i} />
-                </motion.div>
+                </m.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
 
-          <p className="mt-8 text-center text-sm text-slate-500">
+          <p className="mt-8 text-center text-sm text-fg-faint">
             Showing {visible.length} project{visible.length === 1 ? "" : "s"}
             {filter !== "All" ? ` in ${filter}` : ""}.
           </p>

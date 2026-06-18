@@ -1,18 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
-/** Wraps each page to animate fade/slide transitions via AnimatePresence. */
+/**
+ * Page enter animation done with a pure CSS keyframe (see globals.css) so route
+ * transitions cost no JavaScript. The App Router re-mounts the template on each
+ * navigation, replaying the animation.
+ */
 export default function PageTransition({ children }: { children: ReactNode }) {
-  return (
-    <motion.main
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.main>
-  );
+  return <main className="page-enter">{children}</main>;
 }

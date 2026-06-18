@@ -1,12 +1,12 @@
 // Badge images are served statically from /public/certifications.
-const badge01 = "/certifications/badge01.png";
-const badge02 = "/certifications/badge02.png";
-const badge03 = "/certifications/badge03.png";
-const badge04 = "/certifications/badge04.png";
-const badge05 = "/certifications/badge05.png";
-const badge06 = "/certifications/badge06.png";
-const skillbadge01 = "/certifications/skillbadge01.png";
-const skillbadge02 = "/certifications/skillbadge02.png";
+const badge01 = "/certifications/badge01.webp";
+const badge02 = "/certifications/badge02.webp";
+const badge03 = "/certifications/badge03.webp";
+const badge04 = "/certifications/badge04.webp";
+const badge05 = "/certifications/badge05.webp";
+const badge06 = "/certifications/badge06.webp";
+const skillbadge01 = "/certifications/skillbadge01.webp";
+const skillbadge02 = "/certifications/skillbadge02.webp";
 
 export type Badge = {
   image: string;
@@ -16,7 +16,7 @@ export type Badge = {
 };
 
 // Captions are written from each badge's content (the source filenames are
-// generic, e.g. "badge01.png", so they carry no readable title).
+// generic, e.g. "badge01.webp", so they carry no readable title).
 export const BADGES: Badge[] = [
   {
     image: skillbadge02,

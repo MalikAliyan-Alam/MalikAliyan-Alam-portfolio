@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "../lib/site";
 import BrandLogo from "./brand/BrandLogo";
 import BrandSymbol from "./brand/BrandSymbol";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +46,7 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-xl"
+          ? "border-b border-overlay/10 bg-bg/80 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -56,7 +57,7 @@ export default function Navbar() {
           className="group flex items-center transition-transform duration-300 hover:-translate-y-0.5"
         >
           {/* Symbol only on mobile, full horizontal logo from sm+ */}
-          <BrandSymbol className="h-9 w-auto text-slate-100 sm:hidden" />
+          <BrandSymbol className="h-9 w-auto text-fg sm:hidden" />
           <BrandLogo variant="dark" className="hidden sm:inline-flex" />
         </Link>
 
@@ -69,16 +70,12 @@ export default function Navbar() {
                 <Link
                   href={link.to}
                   className={`relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    active ? "text-white" : "text-slate-400 hover:text-white"
+                    active ? "text-fg" : "text-fg-subtle hover:text-fg"
                   }`}
                 >
                   {link.label}
                   {active && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-white/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                    <span className="absolute inset-0 -z-10 rounded-full bg-overlay/10" />
                   )}
                 </Link>
               </li>
@@ -86,35 +83,38 @@ export default function Navbar() {
           })}
         </ul>
 
-        <Link href="/solutions" className="hidden btn-primary xl:inline-flex">
-          Let's Talk
-        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link href="/solutions" className="hidden btn-primary xl:inline-flex">
+            Let's Talk
+          </Link>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-200 lg:hidden"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-10 w-10 place-items-center rounded-lg border border-overlay/10 bg-overlay/5 text-fg lg:hidden"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-overlay/10 bg-bg/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="container-px flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link, i) => (
-                <motion.li
+                <m.li
                   key={link.to}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -126,12 +126,12 @@ export default function Navbar() {
                     className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors ${
                       isActive(link.to)
                         ? "bg-accent/10 text-accent"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
+                        : "text-fg-muted hover:bg-overlay/5 hover:text-fg"
                     }`}
                   >
                     {link.label}
                   </Link>
-                </motion.li>
+                </m.li>
               ))}
               <li className="pt-2">
                 <Link
@@ -143,7 +143,7 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

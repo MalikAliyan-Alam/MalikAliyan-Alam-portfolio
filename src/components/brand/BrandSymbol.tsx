@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 type Node = { id: string; cx: number; cy: number };
 
@@ -87,7 +87,7 @@ export default function BrandSymbol({
       {NODES.map((n, i) => (
         <g key={n.id}>
           {animated && (
-            <motion.circle
+            <m.circle
               cx={n.cx}
               cy={n.cy}
               r={5}
@@ -104,7 +104,7 @@ export default function BrandSymbol({
               }}
             />
           )}
-          <motion.circle
+          <m.circle
             cx={n.cx}
             cy={n.cy}
             r={3.8}
