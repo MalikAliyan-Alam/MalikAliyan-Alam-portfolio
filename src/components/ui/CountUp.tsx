@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 /**
- * Animates a number counting up when it scrolls into view.
+ * Animates a number counting up when it scrolls into view (native
+ * IntersectionObserver, no animation library).
  * Parses a leading integer and preserves any suffix (e.g. "15+", "100%", "24/7").
  */
 export default function CountUp({
@@ -15,7 +15,6 @@ export default function CountUp({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
 
   const match = value.match(/^(\d+)(.*)$/);
   const target = match ? parseInt(match[1], 10) : 0;
@@ -24,19 +23,38 @@ export default function CountUp({
   const [display, setDisplay] = useState(match ? `0${suffix}` : value);
 
   useEffect(() => {
-    if (!inView || !match) return;
+    const el = ref.current;
+    if (!el || !match) return;
+
     let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min((now - start) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setDisplay(`${Math.round(eased * target)}${suffix}`);
-      if (t < 1) raf = requestAnimationFrame(tick);
+    const run = () => {
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / (duration * 1000), 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        setDisplay(`${Math.round(eased * target)}${suffix}`);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          run();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-40px" }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView]);
+  }, []);
 
   return <span ref={ref}>{display}</span>;
 }

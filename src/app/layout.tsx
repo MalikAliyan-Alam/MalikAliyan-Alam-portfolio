@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import InitialLoader from "@/components/InitialLoader";
 import ThemeProvider from "@/components/ThemeProvider";
 import MotionProvider from "@/components/MotionProvider";
 import CustomCursor from "@/components/CustomCursor";
@@ -56,7 +55,6 @@ export default function RootLayout({
         <ThemeProvider>
           <MotionProvider>
             <CustomCursor />
-            <InitialLoader />
             <div className="flex min-h-screen flex-col">
               <Navbar />
               <div className="flex-1">{children}</div>

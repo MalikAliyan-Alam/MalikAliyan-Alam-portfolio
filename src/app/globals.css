@@ -67,8 +67,38 @@
   .page-enter {
     animation: page-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  /* CSS-only scroll/entrance reveal (replaces JS-driven framer reveals so
+     content paints immediately and isn't gated on hydration) */
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .reveal {
+    animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Skill-bar fill (scaleX so the target width can stay dynamic/inline) */
+  @keyframes grow-x {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  .skill-grow {
+    transform-origin: left;
+    animation: grow-x 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .page-enter {
+    .page-enter,
+    .reveal,
+    .skill-grow {
       animation: none;
     }
   }
@@ -119,7 +149,7 @@
   }
 
   .card {
-    @apply rounded-2xl border border-overlay/10 bg-card shadow-[0_1px_2px_rgba(2,6,23,0.04),0_12px_32px_-20px_rgba(2,6,23,0.22)] backdrop-blur-sm transition-all duration-300;
+    @apply rounded-2xl border border-overlay/10 bg-card shadow-[0_1px_2px_rgba(2,6,23,0.04),0_12px_32px_-20px_rgba(2,6,23,0.22)] transition-all duration-300;
   }
 
   .card-hover {

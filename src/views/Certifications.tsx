@@ -1,8 +1,4 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
-import { m, useInView } from "framer-motion";
 import { Award } from "lucide-react";
 import CTASection from "../components/CTASection";
 import Reveal from "../components/ui/Reveal";
@@ -10,15 +6,10 @@ import { Blobs } from "../components/ui/Background";
 import { BADGES, type Badge } from "../lib";
 
 function BadgeCard({ badge, index }: { badge: Badge; index: number }) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <m.figure
-      ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-      className="card card-hover group flex flex-col overflow-hidden p-4"
+    <figure
+      style={{ animationDelay: `${(index % 3) * 0.08}s` }}
+      className="reveal card card-hover group flex flex-col overflow-hidden p-4"
     >
       <div className="overflow-hidden rounded-xl bg-white">
         <Image
@@ -40,7 +31,7 @@ function BadgeCard({ badge, index }: { badge: Badge; index: number }) {
         </span>
         <span className="mt-1 text-xs text-fg-subtle">{badge.kind}</span>
       </figcaption>
-    </m.figure>
+    </figure>
   );
 }
 

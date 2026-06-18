@@ -1,8 +1,4 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
-import { m, useInView } from "framer-motion";
 import Link from "next/link";
 import {
   Github,
@@ -129,20 +125,16 @@ const SKILL_GROUPS: {
 ];
 
 function SkillBar({ name, level }: { name: string; level: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
     <div>
       <div className="mb-1.5 flex items-center justify-between text-sm">
         <span className="text-fg-muted">{name}</span>
         <span className="text-fg-faint">{level}%</span>
       </div>
-      <div ref={ref} className="h-2 overflow-hidden rounded-full bg-overlay/10">
-        <m.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="h-full rounded-full bg-gradient-to-r from-accent-deep to-accent-soft"
+      <div className="h-2 overflow-hidden rounded-full bg-overlay/10">
+        <div
+          style={{ width: `${level}%` }}
+          className="skill-grow h-full rounded-full bg-gradient-to-r from-accent-deep to-accent-soft"
         />
       </div>
     </div>

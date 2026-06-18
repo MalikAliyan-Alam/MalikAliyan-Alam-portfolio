@@ -1,8 +1,4 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
-import { m, useInView } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import type { Project } from "../lib";
 
@@ -13,15 +9,10 @@ export default function ProjectCard({
   project: Project;
   index?: number;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <m.article
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-      className="card card-hover group relative flex flex-col overflow-hidden"
+    <article
+      style={{ animationDelay: `${(index % 3) * 0.08}s` }}
+      className="reveal card card-hover group relative flex flex-col overflow-hidden"
     >
       {/* Screenshot thumbnail */}
       <a
@@ -81,6 +72,6 @@ export default function ProjectCard({
           </a>
         </div>
       </div>
-    </m.article>
+    </article>
   );
 }

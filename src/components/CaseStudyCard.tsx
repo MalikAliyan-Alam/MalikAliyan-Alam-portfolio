@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { m, useInView } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { CaseStudy } from "../lib";
 
@@ -15,15 +13,10 @@ export default function CaseStudyCard({
   index?: number;
   onOpen: (study: CaseStudy) => void;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <m.article
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-      className="card card-hover group relative flex flex-col overflow-hidden"
+    <article
+      style={{ animationDelay: `${(index % 3) * 0.1}s` }}
+      className="reveal card card-hover group relative flex flex-col overflow-hidden"
     >
       {/* Thumbnail placeholder */}
       <button
@@ -46,12 +39,9 @@ export default function CaseStudyCard({
         ) : (
           <>
             <div className="absolute inset-0 bg-grid-faint bg-[size:28px_28px] opacity-60" />
-            <m.span
-              className="relative font-display text-5xl font-bold text-white/80"
-              whileHover={{ scale: 1.1 }}
-            >
+            <span className="relative font-display text-5xl font-bold text-white/80 transition-transform duration-300 group-hover:scale-110">
               {study.title.charAt(0)}
-            </m.span>
+            </span>
           </>
         )}
         {/* sheen on hover */}
@@ -110,6 +100,6 @@ export default function CaseStudyCard({
           )}
         </div>
       </div>
-    </m.article>
+    </article>
   );
 }

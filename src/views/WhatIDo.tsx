@@ -1,7 +1,3 @@
-"use client";
-
-import { useRef } from "react";
-import { m, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import ServiceCard from "../components/ServiceCard";
@@ -12,21 +8,16 @@ import { Blobs } from "../components/ui/Background";
 import { SERVICES, PROCESS_MINI } from "../lib";
 
 function ProcessStep({ step, index }: { step: string; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
-    <m.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      transition={{ delay: index * 0.12, duration: 0.5 }}
-      className="relative flex flex-col items-center text-center"
+    <div
+      style={{ animationDelay: `${index * 0.12}s` }}
+      className="reveal relative flex flex-col items-center text-center"
     >
       <span className="relative z-10 grid h-14 w-14 place-items-center rounded-2xl border border-accent/30 bg-card font-display text-xl font-bold text-accent shadow-[0_0_30px_-10px_rgba(45,212,191,0.6)]">
         {String(index + 1).padStart(2, "0")}
       </span>
       <h3 className="mt-4 text-base font-semibold text-fg">{step}</h3>
-    </m.div>
+    </div>
   );
 }
 

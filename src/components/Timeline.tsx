@@ -1,8 +1,3 @@
-"use client";
-
-import { useRef } from "react";
-import { m, useInView } from "framer-motion";
-
 export type TimelineItem = {
   title: string;
   subtitle?: string;
@@ -12,17 +7,12 @@ export type TimelineItem = {
 
 function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
   const isLeft = index % 2 === 0;
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <li className="relative">
-      <m.div
-        ref={ref}
-        initial={{ opacity: 0, y: 28 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-        transition={{ duration: 0.5, delay: 0.05 }}
-        className={`relative pl-12 sm:w-1/2 sm:pl-0 ${
+      <div
+        style={{ animationDelay: `${index * 0.08}s` }}
+        className={`reveal relative pl-12 sm:w-1/2 sm:pl-0 ${
           isLeft ? "sm:pr-12 sm:text-right" : "sm:ml-auto sm:pl-12 sm:text-left"
         }`}
       >
@@ -43,9 +33,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
               {item.meta}
             </span>
           )}
-          <h3 className="mt-1 text-lg font-semibold text-fg">
-            {item.title}
-          </h3>
+          <h3 className="mt-1 text-lg font-semibold text-fg">{item.title}</h3>
           {item.subtitle && (
             <p className="text-sm font-medium text-fg-subtle">{item.subtitle}</p>
           )}
@@ -53,7 +41,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
             {item.description}
           </p>
         </div>
-      </m.div>
+      </div>
     </li>
   );
 }
